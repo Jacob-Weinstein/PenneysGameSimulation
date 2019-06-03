@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-	<head>Penney's Game</head>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<body>
-		<h1>Penney's Game</h1>
+		<div class="container">
+			<h1>Penney's Game</h1>
 		<div class="container">
 				<form>
 				  <div class="form-group">
@@ -21,41 +21,10 @@
 						<label for="trials">Number of trials</label>
 				    <input type="number" class="form-control" id="trials" value=100>
 					</div>
-				  <button type="submit" id="execute" onclick="simulation()" class="btn btn-primary">Submit</button>
+				  <button type="submit" id="execute" class="btn btn-primary">Submit</button>
 				</form>
+				<br>
 			</div>
-			<!--<div class="container">
-				<div class="input-group">
-					<p>First player's sequence</p>
-					<input type="text" class="form-control" id="p1" placeholder="Ex. HTH">
-				</div>
-				<div class="input-group">
-
-					<input type="text" class="form-control" id="p2" placeholder="Ex. HTT">
-				</div>
-				<div class="input-group">
-					<input type="number" class="form-control" id="trials" value=100>
-				</div>
-			</div>-->
-
-			<!--<div class="row">
-				<div class="col-sm">
-					<p>Enter the first player's sequence</p>
-					<input type="text" id="p1" placeholder="Ex. HTH"></input>
-				</div>
-				<div class="col-sm">
-					<p>Enter the second player's sequence</p>
-					<input type="text" id="p2" placeholder="Ex. HHT"></input>
-				</div>
-
-			</div>
-			<div class="row">
-				<div class="col-sm">
-					<p>Enter the number of trials</p>
-					<input type="number" id="trials"></input>
-				</div>
-			</div>
-		</div>-->
 		<div class="container">
 			<div id="output" style="display:none">
 				<p> Player 1's chance of winning: <span id="p1WinChance"></span></p>
@@ -70,6 +39,10 @@
 
 	</body>
 	<script>
+		$("#execute").click(function(){
+			$("tr .rem").remove();
+			simulation();
+		})
 		$("form").on("submit", function () { /*your ajax*/ return false; });
 		function hasValidChars(s){
 			var alphabet = "HT";
@@ -101,6 +74,8 @@
 				var newRow = document.createElement("tr");
 				var newSeq = document.createElement("td");
 				var newWinner = document.createElement("td");
+				newRow.className = "rem";
+
 				while (!finished){
 					var randomNum = 1 + Math.floor((Math.random() * 2));
 					if(randomNum == 1.0){
@@ -132,17 +107,14 @@
 
 			$("#output").toggle();
 
-			console.log(p1Wins);
-			$("#p1WinChance").text((p1Wins / (p1Wins + p2Wins)) * 100 + "%");
+			$("#p1WinChance").text(((p1Wins / (p1Wins + p2Wins)) * 100).toFixed(2) + "% (" + p1Wins + "/" + (p1Wins + p2Wins) + ")");
 			/*System.out.prvarln("Head: " + headCount + " Tails: " + tailCount);
 			System.out.prvarln("P1 wins: " + p1Wins + " P2Wins: " + p2Wins);
 			System.out.prvarln("P1 winning chance: " + (double) p1Wins / (p1Wins + p2Wins) * 100 + "%");*/
 			$("#p1").val("");
 			$("#p2").val("");
 			$("#trials").val(100);
-			//document.getElementById("p1").value = "";
-			combo2 = "";
-			trials = "";
+
 		}
 	</script>
 </html>

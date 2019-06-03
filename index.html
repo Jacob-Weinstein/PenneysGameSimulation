@@ -6,7 +6,9 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<body>
 		<div class="container">
-			<h1>Penney's Game</h1>
+			<div class="page-header">
+				<h1>Penney's Game</h1>
+			</div>
 		<div class="container">
 				<form>
 				  <div class="form-group">
@@ -57,7 +59,7 @@
 			var combo1 = $("#p1").val();
 			var combo2 = $("#p2").val();
 			var trials = $("#trials").val();
-			if (!(hasValidChars(combo1) && hasValidChars(combo2) && trials == Math.round(trials) && trials > 0)){
+			if (combo1 !== "" && combo2 !== "" && !(hasValidChars(combo1) && hasValidChars(combo2) && trials == Math.round(trials) && trials > 0)){
 				console.log("caught exception");
 				return;
 			}

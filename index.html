@@ -42,6 +42,7 @@
 	</body>
 	<script>
 		$("#execute").click(function(){
+			$("p1WinChance").val("");
 			$("tr .rem").remove();
 			simulation();
 		})
@@ -59,7 +60,7 @@
 			var combo1 = $("#p1").val();
 			var combo2 = $("#p2").val();
 			var trials = $("#trials").val();
-			if (combo1 !== "" && combo2 !== "" && !(hasValidChars(combo1) && hasValidChars(combo2) && trials == Math.round(trials) && trials > 0)){
+			if (combo1 == "" || combo2 == "" || !(hasValidChars(combo1) && hasValidChars(combo2) && trials == Math.round(trials) && trials > 0)){
 				console.log("caught exception");
 				return;
 			}
@@ -107,7 +108,9 @@
 	 			$("#table").append(newRow);
 			}
 
-			$("#output").toggle();
+			if ($("#output").is(":hidden")){
+					$("#output").toggle();
+			}
 
 			$("#p1WinChance").text(((p1Wins / (p1Wins + p2Wins)) * 100).toFixed(2) + "% (" + p1Wins + "/" + (p1Wins + p2Wins) + ")");
 			/*System.out.prvarln("Head: " + headCount + " Tails: " + tailCount);

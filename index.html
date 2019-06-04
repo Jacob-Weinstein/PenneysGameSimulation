@@ -30,6 +30,9 @@
 		<div class="container">
 			<div id="output" style="display:none">
 				<p> Player 1's chance of winning: <span id="p1WinChance"></span></p>
+				<p> Avg sequence length for a player one win: <span id="p1length"></span></p>
+				<p> Avg sequence length for a player two win: <span id="p2length"></span></p>
+				<p> Heads: <span id="numHeads"></span> Tails: <span id="numTails"></span> </p>
 				<table id="table" class="table table-striped table-dark">
 					<tr>
 						<th>Sequence</th>
@@ -70,6 +73,8 @@
 			var tailCount = 0;
 			var p1Wins = 0;
 			var p2Wins = 0;
+			var avgp1length = 0;
+			var avgp2length = 0;
 			var sequence = "";
 
 			 for(var y=0; y<trials; y++){
@@ -92,6 +97,7 @@
 						p1Wins++;
 						newSeq.textContent = sequence;
 						newWinner.textContent = "Player 1 wins";
+						avgp1length += sequence.length;
 						sequence = "";
 						finished = true;
 					}
@@ -99,6 +105,7 @@
 						p2Wins++;
 						newSeq.textContent = sequence;
 						newWinner.textContent = "Player 2 wins";
+						avgp2length += sequence.length;
 						sequence = "";
 						finished = true;
 					}
@@ -113,6 +120,12 @@
 			}
 
 			$("#p1WinChance").text(((p1Wins / (p1Wins + p2Wins)) * 100).toFixed(2) + "% (" + p1Wins + "/" + (p1Wins + p2Wins) + ")");
+			$("#numHeads").text(headCount);
+			$("#numTails").text(tailCount);
+			$("#p1length").text((avgp1length / p1Wins).toFixed(2));
+			$("#p2length").text((avgp2length / p2Wins).toFixed(2));
+			//console.log("Head count: " + headCount);
+			//console.log("Tail count: " + tailCount);
 			/*System.out.prvarln("Head: " + headCount + " Tails: " + tailCount);
 			System.out.prvarln("P1 wins: " + p1Wins + " P2Wins: " + p2Wins);
 			System.out.prvarln("P1 winning chance: " + (double) p1Wins / (p1Wins + p2Wins) * 100 + "%");*/
